@@ -1,3 +1,7 @@
+"""
+This module provides a utility function to get the device to use for training and inference.
+"""
+
 from torch import device
 
 

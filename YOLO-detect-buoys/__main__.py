@@ -2,8 +2,11 @@
 The main entry point for YOLO detecter buoys.
 """
 
+from os import getcwd, path
+
+import cv2
 from ultralytics import YOLO
-from utils import get_device
+from utils import get_data, get_device, process_video
 
 if "__main__" == __name__:
     """
@@ -12,10 +15,17 @@ if "__main__" == __name__:
 
     device = get_device()
     model = YOLO("yolov8n.pt")
-    model.to(device)
-    results = model.train(data="coco128.yaml", epochs=3)
-    results = model.val()
 
+    file_path = path.abspath(getcwd())
+    dataset_location = get_data("soccer-players-ckbru", 16)
+
+    result = model.train(
+        data=dataset_location + "\data.yaml", epochs=50, imgsz=640, device=device
+    )
+
+    model.val()
+
+    process_video("https://youtu.be/4WGpIOwkLA4?feature=shared", model)
 
 # References:
 # https://docs.ultralytics.com/quickstart/#install-ultralytics

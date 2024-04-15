@@ -2,6 +2,18 @@ README.md
 
 # Vortex image processing
 
+This is the README file for the directory containing the image processing software created and used by Vortex.
+
+## Getting Started:
+
+### Prerequisites:
+
+Make sure that you have the following installed on your system:
+
+- [Python](https://www.python.org/)
+- [pip](https://pip.pypa.io/en/stable/installation/)
+- [venv](https://docs.python.org/3/library/venv.html)
+
 ---
 
 ## Testing

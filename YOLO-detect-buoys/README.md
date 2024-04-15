@@ -4,7 +4,15 @@ README.md
 
 This is the README file for the project by Vortex that uses YOLO to detect buoys.
 
-## Usage:
+## Getting Started:
+
+### Prerequisites:
+
+Make sure that you have the following installed on your system:
+
+- [Python](https://www.python.org/)
+
+### Run the application:
 
 - Download the project dependencies by running `pip install -r requirements.txt`.
 - Create a virtual environment by running `python -m venv venv`.
@@ -34,3 +42,9 @@ Then, in the appeared page, copy the string under the `Private API Key (for infe
 - The `__main__.py` file is the entry point of the application.
 
 ## Testing
+
+The automated tests are stored in the `tests` directory. Make sure to [install `pytest`](https://docs.pytest.org/en/7.1.x/getting-started.html). The tests can be ran by using the command `pytest .`. The commands will run the test define the the `test_*.py` files. Make sure that you are in the `YOLO-detect-buoys` directory. The naming convention of testing files is comprised of the word `test_` followed by the name of the file to which the test is related: `test_<FILE_NAME>.py`. An example of that is `tests/test_utils.py` which is a python test file tah tests the functions `utils`.
+
+## Linting
+
+Linting improves code quality by ensuring the the codebase does not contain bad-practices. PyLint is used as the Python linter in this project. Make sure to install the [PyLint extension](https://pypi.org/project/pylint/) for VSCode or [PyLint plugin](https://plugins.jetbrains.com/plugin/11084-pylint) for JetBrains products like Pycharm. The rules are saved in the `.pylintrc` files.

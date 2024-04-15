@@ -4,7 +4,6 @@ The main entry point for YOLO detecter buoys.
 
 from os import getcwd, path
 
-import cv2
 from ultralytics import YOLO
 from utils import get_data, get_device, process_video
 

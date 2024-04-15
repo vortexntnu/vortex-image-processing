@@ -59,9 +59,9 @@ def process_video(url: str, model: YOLO) -> None:
 
                 # Plot the tracks
                 for box, track_id in zip(boxes, track_ids):
-                    x, y, w, _ = box
+                    x_val, y_val, _, _ = box
                     track = track_history[track_id]
-                    track.append((float(x), float(y)))  # x, y center point
+                    track.append((float(x=x_val), float(y_val)))  # x, y center point
                     if len(track) > 30:  # retain 90 tracks for 90 frames
                         track.pop(0)
 

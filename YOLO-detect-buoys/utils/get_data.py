@@ -25,7 +25,7 @@ def get_data_roboflow(project_id: str, version_number: int):
     version = project.version(version_number=version_number)
     dataset = version.download(model_format="yolov8")
 
-    return dataset.location
+    return dataset.location, dataset.name, dataset.version
 
 
 def get_data(*args, **kwargs):

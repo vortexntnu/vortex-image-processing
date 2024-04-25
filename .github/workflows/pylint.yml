@@ -38,7 +38,7 @@ jobs:
         shell: bash
         run: |
           source ./.venv/bin/activate
-          pip install -U pylint pytest
+          pip install -U pylint pytest -e .
 
   lint:
     needs: install
@@ -57,11 +57,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ steps.setup_python.outputs.python-version }}-venv-
 
-      - name: export environment variables so that pylint can find the installed packages
+      - name: read and use pylint environment variables
         shell: bash
         run: |
           source ./.venv/bin/activate
-          export PYTHONPATH=$PYTHONPATH:$(pwd)
           export PATH=$PATH:$(pwd)/.venv/bin
 
       - name: Lint Code

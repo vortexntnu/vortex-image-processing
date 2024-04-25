@@ -4,14 +4,10 @@ The main entry point for YOLO detecter buoys.
 
 from os import getcwd, path
 
-import cv2
 from ultralytics import YOLO
 from utils import get_data, get_device, process_video
 
 if "__main__" == __name__:
-    """
-    The main entry point for YOLO detecter buoys.
-    """
 
     device = get_device()
     model = YOLO("yolov8n.pt")
@@ -20,7 +16,7 @@ if "__main__" == __name__:
     dataset_location = get_data("soccer-players-ckbru", 16)
 
     result = model.train(
-        data=dataset_location + "\data.yaml", epochs=50, imgsz=640, device=device
+        data=dataset_location + "\\data.yaml", epochs=50, imgsz=640, device=device
     )
 
     model.val()

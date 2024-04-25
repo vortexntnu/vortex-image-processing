@@ -30,21 +30,21 @@ jobs:
         run: |
           python3 -m venv ./.venv
           source ./.venv/bin/activate
-          python3 -m pip install -r requirements.txt
+          pip install -r requirements.txt
         if: steps.cache-venv.outputs.cache-hit != 'true'
 
       - name: Install repo project
         shell: bash
         run: |
           source ./.venv/bin/activate
-          python -m pip install -U -e ./python
+          pip install -U pylint pytest
 
   lint:
     needs: install
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.10", "3.11"]
+        python-version: ["3.11"]
     steps:
       - uses: actions/checkout@v3
       - name: Restore Python virtual environment
@@ -67,7 +67,7 @@ jobs:
       ROBOFLOW_PROJECT_ID: ${{ secrets.ROBOFLOW_PROJECT_ID }}
     strategy:
       matrix:
-        python-version: ["3.10", "3.11"]
+        python-version: ["3.11"]
     steps:
       - uses: actions/checkout@v3
       - name: Restore Python virtual environment

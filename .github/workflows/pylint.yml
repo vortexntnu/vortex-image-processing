@@ -53,7 +53,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ./.venv/
-          key: ${{ runner.os }}-${{ matrix.python-version }}-venv-${{ hashFiles('requirements.txt') }}
+          key: ${{ runner.os }}-${{ steps.setup_python.outputs.python-version }}-venv-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ steps.setup_python.outputs.python-version }}-venv-
 
       - name: add pylint as a command from env
         shell: bash
@@ -83,7 +85,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ./.venv/
-          key: ${{ runner.os }}-${{ matrix.python-version }}-venv-${{ hashFiles('requirements.txt') }}
+          key: ${{ runner.os }}-${{ steps.setup_python.outputs.python-version }}-venv-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ steps.setup_python.outputs.python-version }}-venv-
 
       - name: Run tests
         shell: bash

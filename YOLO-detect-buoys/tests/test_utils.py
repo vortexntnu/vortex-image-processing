@@ -2,8 +2,10 @@
 Module for the utility functions.
 """
 
+from os import path
 from unittest.mock import Mock, patch
 
+from dotenv import load_dotenv
 from torch import cuda, device
 from utils import get_data, get_device
 
@@ -26,21 +28,11 @@ def test_get_data() -> None:
     This makes sure that if the function is changed, the tests verifies that
     the function returns the expected dataset location.
     """
-    with patch("os.getenv") as mock_getenv:
-        mock_getenv.return_value = "ROBOFLOW_API_KEY"
-        with patch("roboflow.Roboflow") as mock_roboflow:
-            mock_roboflow.return_value = Mock()
-            mock_roboflow.return_value.workspace.return_value = Mock()
-            mock_roboflow.return_value.workspace.return_value.project.return_value = (
-                Mock()
-            )
-            mock_roboflow.return_value.workspace.return_value.project.return_value.version.return_value = (
-                Mock()
-            )
-            mock_roboflow.return_value.workspace.return_value.project.return_value.version.return_value.download.return_value = (
-                Mock()
-            )
-            mock_roboflow.return_value.workspace.return_value.project.return_value.version.return_value.download.return_value.location = (
-                "https://example.com"
-            )
-            assert get_data("project_id", 1) == "https://example.com"
+
+    load_dotenv()
+
+    returned_dataset_location = get_data("soccer-players-ckbru", 16)
+
+    path_to_data = path.abspath("./data")
+
+    assert returned_dataset_location == path_to_data

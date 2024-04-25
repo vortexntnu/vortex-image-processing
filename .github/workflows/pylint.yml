@@ -25,6 +25,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ steps.setup_python.outputs.python-version }}-venv-
 
+      - name: save environment to cache
+        run: echo "::set-env name=PATH::$(pwd)/.venv/bin:$PATH"
+
       - name: Install dependencies
         shell: bash
         run: |
@@ -57,13 +60,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ steps.setup_python.outputs.python-version }}-venv-
 
-      - name: add pylint as a command from env
-        shell: bash
+      - name: export environment from cache
         run: |
-          ls -la ./.venv
-          ls -la ./.venv/bin
-          source ./.venv/bin/activate
-          export PATH=$PATH:$(pwd)/.venv/bin
+          export PATH=$(pwd)/.venv/bin:$PATH
+          echo "::set-env name=PATH::$(pwd)/.venv/bin:$PATH"
 
       - name: Lint Code
         shell: bash

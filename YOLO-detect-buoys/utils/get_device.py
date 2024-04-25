@@ -2,7 +2,7 @@
 This module provides a utility function to get the device to use for training and inference.
 """
 
-from torch import device
+from torch import cuda, device
 
 
 def get_device() -> device:
@@ -13,6 +13,5 @@ def get_device() -> device:
     Returns:
         torch.device: The device to use for training and inference.
     """
-    from torch import cuda
 
     return device(device="cuda" if cuda.is_available() else "cpu")

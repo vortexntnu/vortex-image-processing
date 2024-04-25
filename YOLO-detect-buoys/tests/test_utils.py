@@ -4,7 +4,6 @@ Module for the utility functions.
 
 from unittest.mock import Mock, patch
 
-import pytest
 from torch import cuda, device
 from utils import get_data, get_device
 

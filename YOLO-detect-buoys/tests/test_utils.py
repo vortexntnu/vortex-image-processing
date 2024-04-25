@@ -3,7 +3,6 @@ Module for the utility functions.
 """
 
 from os import path
-from unittest.mock import Mock, patch
 
 from dotenv import load_dotenv
 from torch import cuda, device

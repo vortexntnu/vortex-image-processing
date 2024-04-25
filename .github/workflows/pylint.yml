@@ -57,23 +57,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ steps.setup_python.outputs.python-version }}-venv-
 
-      - name: cache get env
-        run: |
-          echo steps.cache-venv.outputs
-          echo steps.cache-venv.outputs.cache-hit
-
-      - name: Install dependencies if cache not found
-        shell: bash
-        run: |
-          python3 -m venv ./.venv
-          source ./.venv/bin/activate
-          pip install -r requirements.txt -e .
-          pip install -U pylint pytest -e .
-        if: steps.cache-venv.outputs.cache-hit != 'true'
-
       - name: Lint Code
         shell: bash
         run: |
+          pip install -U pylint
           pylint $(git ls-files '*.py')
 
   test:
@@ -98,4 +85,5 @@ jobs:
       - name: Run tests
         shell: bash
         run: |
+          pip install -U pytest
           pytest .

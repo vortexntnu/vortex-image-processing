@@ -27,8 +27,8 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -U pylint
           pip install -r requirements.txt
+          pip install -U pylint
 
       - name: Lint Code
         run: pylint $(git ls-files '*.py')
@@ -49,18 +49,13 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: read Cached pip
+      - name: Cache pip
         uses: actions/cache@v2
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
 
       - name: Run tests
         run: pytest .

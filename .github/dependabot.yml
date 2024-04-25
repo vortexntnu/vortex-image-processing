@@ -6,10 +6,6 @@
 version: 2
 updates:
   - package-ecosystem: "pip"
-    directory: "/" 
+    directory: "/"
     schedule:
       interval: "daily"
-  groups:
-      python-packages:
-        patterns:
-          - "*"

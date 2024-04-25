@@ -58,6 +58,8 @@ jobs:
       - name: add pylint as a command from env
         shell: bash
         run: |
+          ls -la ./.venv
+          ls -la ./.venv/bin
           source ./.venv/bin/activate
           export PATH=$PATH:$(pwd)/.venv/bin
 

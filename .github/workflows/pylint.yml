@@ -3,61 +3,27 @@ name: Python CI
 on: [push, workflow_dispatch]
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11"]
     steps:
       - uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v3
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Set up cache
-        uses: actions/cache@v2
-        id: cache-virtualenv
-        with:
-          path: ~/.venv
-          key: ${{ runner.os }}-venv-${{ matrix.python-version }}-${{ hashFiles('**/requirements.txt') }}
-
-      - name: Install dependencies
-        if: steps.cache-virtualenv.outputs.cache-hit != 'true'
+      - name: Lint Code
         run: |
-          python -m venv ~/.venv
-          source ~/.venv/bin/activate
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install -U pylint pytest
-
-  lint:
-    needs: build
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.10", "3.11"]
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Restore Python virtual environment
-        uses: actions/cache@v2
-        with:
-          path: ~/.venv
-          key: ${{ runner.os }}-venv-${{ matrix.python-version }}-${{ hashFiles('**/requirements.txt') }}
-
-      - name: Lint Code
-        run: |
-          source ~/.venv/bin/activate
           pylint $(git ls-files '*.py')
 
   test:
-    needs: build
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: ["3.10", "3.11"]
     steps:
       - uses: actions/checkout@v3
-
       - name: Restore Python virtual environment
         uses: actions/cache@v2
         with:
@@ -66,5 +32,7 @@ jobs:
 
       - name: Run tests
         run: |
-          source ~/.venv/bin/activate
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -U pylint pytest
           pytest .

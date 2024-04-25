@@ -25,7 +25,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ steps.setup_python.outputs.python-version }}-venv-
 
-      - name: Install dependencies
+      - name: Install dependencies and package in editable mode
         shell: bash
         run: |
           python3 -m venv ./.venv
@@ -56,6 +56,15 @@ jobs:
           key: ${{ runner.os }}-${{ steps.setup_python.outputs.python-version }}-venv-${{ hashFiles('requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-${{ steps.setup_python.outputs.python-version }}-venv-
+
+      - name: Install dependencies if cache not found
+        shell: bash
+        run: |
+          python3 -m venv ./.venv
+          source ./.venv/bin/activate
+          pip install -r requirements.txt -e .
+          pip install -U pylint pytest -e .
+        if: steps.cache-venv.outputs.cache-hit != 'true'
 
       - name: read and use pylint environment variables
         shell: bash

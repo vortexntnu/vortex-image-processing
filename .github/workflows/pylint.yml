@@ -17,7 +17,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: cache virtualenv
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: cache-venv
         with:
           path: ./.venv/
@@ -52,7 +52,7 @@ jobs:
       - name: Restore Python virtual environment
         uses: actions/cache@v4
         with:
-          path: ./.venv
+          path: ./.venv/
           key: ${{ runner.os }}-${{ matrix.python-version }}-venv-${{ hashFiles('requirements.txt') }}
 
       - name: add pylint as a command from env
@@ -82,7 +82,7 @@ jobs:
       - name: Restore Python virtual environment
         uses: actions/cache@v4
         with:
-          path: ./.venv
+          path: ./.venv/
           key: ${{ runner.os }}-${{ matrix.python-version }}-venv-${{ hashFiles('requirements.txt') }}
 
       - name: Run tests

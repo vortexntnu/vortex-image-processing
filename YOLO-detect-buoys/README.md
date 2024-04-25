@@ -16,8 +16,8 @@ Make sure that you have the following installed on your system:
 
 ### Run the application:
 
-- Download the project dependencies by running `pip install -r requirements.txt`.
 - Create a virtual environment by running `python -m venv venv`.
+- Download the project dependencies by running `pip install -r requirements.txt`.
 - Activate the virtual environment by running `source venv/bin/activate` (for Unix-based systems) or `venv\Scripts\activate` (for Windows).
 - Make sure to create `.env` file and add `ROBOFLOW_API_KEY` variable equal to your token
 - Run the application by executing the `main.py` file.

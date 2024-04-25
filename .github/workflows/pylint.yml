@@ -55,6 +55,12 @@ jobs:
           path: ./.venv
           key: ${{ runner.os }}-${{ matrix.python-version }}-venv-${{ hashFiles('requirements.txt') }}
 
+      - name: add pylint as a command from env
+        shell: bash
+        run: |
+          source ./.venv/bin/activate
+          export PATH=$PATH:$(pwd)/.venv/bin
+
       - name: Lint Code
         shell: bash
         run: |

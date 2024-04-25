@@ -30,7 +30,8 @@ jobs:
         run: |
           python3 -m venv ./.venv
           source ./.venv/bin/activate
-          pip install -r requirements.txt
+          pip install -r requirements.txt -e .
+          pip install -U pylint pytest -e .
         if: steps.cache-venv.outputs.cache-hit != 'true'
 
       - name: Install repo project
@@ -52,6 +53,7 @@ jobs:
         with:
           path: ./.venv
           key: ${{ runner.os }}-${{ matrix.python-version }}-venv-${{ hashFiles('requirements.txt') }}
+
       - name: Lint Code
         shell: bash
         run: |

@@ -43,7 +43,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install requirements
-        run: pip install python-cov codecov
+        run: pip install pytest-cov codecov
       - name: Run tests and collect coverage
         run: pytest --cov .
       - name: Upload coverage reports to Codecov

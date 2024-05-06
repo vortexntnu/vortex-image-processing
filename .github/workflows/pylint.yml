@@ -14,7 +14,7 @@ jobs:
       - name: Lint Code
         shell: bash
         run: |
-          pip install -r requirements.txt .
+          pip install -r requirements.txt
           pip install -U pylint
           pylint $(git ls-files '*.py')
 
@@ -32,6 +32,6 @@ jobs:
       - name: Run tests
         shell: bash
         run: |
-          pip install -r requirements.txt .
+          pip install -r requirements.txt
           pip install -U pytest
           pytest .

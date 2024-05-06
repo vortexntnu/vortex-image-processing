@@ -37,3 +37,15 @@ jobs:
           pip install -r requirements.txt
           pip install -U pytest
           pytest .
+
+  codecov:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install codecov
+        run: pip install codecov
+
+      - name: Upload coverage report to Codecov
+        run: codecov

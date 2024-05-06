@@ -3,43 +3,6 @@ name: Python CI
 on: [push, workflow_dispatch]
 
 jobs:
-  install:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.11"]
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: cache virtualenv
-        uses: actions/cache@v4
-        id: cache-venv
-        with:
-          path: ./.venv/
-          key: ${{ runner.os }}-${{ steps.setup_python.outputs.python-version }}-venv-${{ hashFiles('requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ steps.setup_python.outputs.python-version }}-venv-
-
-      - name: Install dependencies and package in editable mode
-        shell: bash
-        run: |
-          python3 -m venv ./.venv
-          source ./.venv/bin/activate
-          pip install -r requirements.txt -e .
-          pip install -U pylint pytest
-        if: steps.cache-venv.outputs.cache-hit != 'true'
-
-      - name: Install repo project
-        shell: bash
-        run: |
-          source ./.venv/bin/activate
-          pip install -U pylint pytest
-
   lint:
     needs: install
     runs-on: ubuntu-latest
@@ -49,17 +12,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Restore Python virtual environment
-        uses: actions/cache@v4
-        with:
-          path: ./.venv/
-          key: ${{ runner.os }}-${{ steps.setup_python.outputs.python-version }}-venv-${{ hashFiles('requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ steps.setup_python.outputs.python-version }}-venv-
-
       - name: Lint Code
         shell: bash
         run: |
+          pip install -r requirements.txt .
           pip install -U pylint
           pylint $(git ls-files '*.py')
 
@@ -74,16 +30,10 @@ jobs:
         python-version: ["3.11"]
     steps:
       - uses: actions/checkout@v3
-      - name: Restore Python virtual environment
-        uses: actions/cache@v4
-        with:
-          path: ./.venv/
-          key: ${{ runner.os }}-${{ steps.setup_python.outputs.python-version }}-venv-${{ hashFiles('requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ steps.setup_python.outputs.python-version }}-venv-
 
       - name: Run tests
         shell: bash
         run: |
+          pip install -r requirements.txt .
           pip install -U pytest
           pytest .

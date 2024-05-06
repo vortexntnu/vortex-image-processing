@@ -7,8 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.10", "3.11", "3.12"]
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ["3.11", "3.12"]
+        os: [ubuntu-latest, windows-latest]
     steps:
       - uses: actions/checkout@v4
 
@@ -26,8 +26,8 @@ jobs:
       ROBOFLOW_PROJECT_ID: ${{ secrets.ROBOFLOW_PROJECT_ID }}
     strategy:
       matrix:
-        python-version: ["3.10", "3.11", "3.12"]
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ["3.11", "3.12"]
+        os: [ubuntu-latest, windows-latest]
     steps:
       - uses: actions/checkout@v4
 
@@ -40,6 +40,9 @@ jobs:
   codecov:
     runs-on: ubuntu-latest
     needs: test
+    env:
+      ROBOFLOW_API_KEY: ${{ secrets.ROBOFLOW_API_KEY }}
+      ROBOFLOW_PROJECT_ID: ${{ secrets.ROBOFLOW_PROJECT_ID }}
     steps:
       - uses: actions/checkout@v4
       - name: Install requirements

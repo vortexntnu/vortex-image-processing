@@ -2,10 +2,10 @@
 This module provides a utility function to get the device to use for training and inference.
 """
 
-from torch import device
+import torch
 
 
-def get_device() -> device:
+def get_device() -> torch.device:
     """
     Get the device to use for training and inference.
     https://stackoverflow.com/questions/48152674/how-do-i-check-if-pytorch-is-using-the-gpu
@@ -13,6 +13,5 @@ def get_device() -> device:
     Returns:
         torch.device: The device to use for training and inference.
     """
-    from torch import cuda
 
-    return device(device="cuda" if cuda.is_available() else "cpu")
+    return torch.device(device="cuda" if torch.cuda.is_available() else "cpu")

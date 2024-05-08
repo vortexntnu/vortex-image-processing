@@ -3,6 +3,11 @@ Get data from Roboflow.
 # Path: YOLO-detect-buoys/utils/get_device.py
 """
 
+from os import getenv
+
+from dotenv import load_dotenv
+from roboflow import Roboflow
+
 
 def get_data_roboflow(project_id: str, version_number: int):
     """
@@ -10,10 +15,6 @@ def get_data_roboflow(project_id: str, version_number: int):
     Do not expose the API key in the code.
     """
     # import environment variables
-    from os import getenv
-
-    from dotenv import load_dotenv
-    from roboflow import Roboflow
 
     load_dotenv()
 
@@ -24,7 +25,7 @@ def get_data_roboflow(project_id: str, version_number: int):
     version = project.version(version_number=version_number)
     dataset = version.download(model_format="yolov8")
 
-    return dataset.location
+    return dataset.location, dataset.name, dataset.version
 
 
 def get_data(*args, **kwargs):

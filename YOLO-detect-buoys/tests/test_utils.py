@@ -2,9 +2,9 @@
 Module for the utility functions.
 """
 
-from unittest.mock import Mock, patch
+from os import getcwd
 
-import pytest
+from dotenv import load_dotenv
 from torch import cuda, device
 from utils import get_data, get_device
 
@@ -27,21 +27,10 @@ def test_get_data() -> None:
     This makes sure that if the function is changed, the tests verifies that
     the function returns the expected dataset location.
     """
-    with patch("os.getenv") as mock_getenv:
-        mock_getenv.return_value = "ROBOFLOW_API_KEY"
-        with patch("roboflow.Roboflow") as mock_roboflow:
-            mock_roboflow.return_value = Mock()
-            mock_roboflow.return_value.workspace.return_value = Mock()
-            mock_roboflow.return_value.workspace.return_value.project.return_value = (
-                Mock()
-            )
-            mock_roboflow.return_value.workspace.return_value.project.return_value.version.return_value = (
-                Mock()
-            )
-            mock_roboflow.return_value.workspace.return_value.project.return_value.version.return_value.download.return_value = (
-                Mock()
-            )
-            mock_roboflow.return_value.workspace.return_value.project.return_value.version.return_value.download.return_value.location = (
-                "https://example.com"
-            )
-            assert get_data("project_id", 1) == "https://example.com"
+    load_dotenv()
+
+    location_, name_, version_ = get_data("football-players-detection", 1)
+
+    assert location_ == getcwd() + "\\" + name_.replace(" ", "-") + "-" + str(
+        version_
+    ), "The dataset location is not correct."

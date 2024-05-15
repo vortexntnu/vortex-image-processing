@@ -2,7 +2,7 @@
 Module for the utility functions.
 """
 
-from os import path
+from os import getcwd
 
 from dotenv import load_dotenv
 from torch import cuda, device
@@ -27,11 +27,10 @@ def test_get_data() -> None:
     This makes sure that if the function is changed, the tests verifies that
     the function returns the expected dataset location.
     """
-
     load_dotenv()
 
-    returned_dataset_location = get_data("soccer-players-ckbru", 16)
+    location_, name_, version_ = get_data("football-players-detection", 1)
 
-    path_to_data = path.abspath("./data")
-
-    assert returned_dataset_location == path_to_data
+    assert location_ == getcwd() + "\\" + name_.replace(" ", "-") + "-" + str(
+        version_
+    ), "The dataset location is not correct."

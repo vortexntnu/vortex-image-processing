@@ -14,9 +14,20 @@ def process_video(url: str, model: YOLO) -> None:
     """
     Process a video with YOLOv8 tracking.
 
+
+
     Args:
     - url (str): The URL of the video to process.
     - model (YOLO): The YOLOv8 model to use for tracking.
+
+    Returns:
+    - None
+
+    Usage:
+    ```python
+    process_video("https://youtu.be/4WGpIOwkLA4?feature=shared", model)
+    ```
+
     """
 
     video = new(url)
@@ -34,12 +45,12 @@ def process_video(url: str, model: YOLO) -> None:
 
         if success:
             # Run YOLOv8 tracking on the frame, persisting tracks between frames
+            # https://docs.ultralytics.com/modes/track/
             results = model.track(frame, persist=True)
 
             # makes sure the boxes and track IDs are not None
             if results[0].boxes is not None and results[0].boxes.id is not None:
                 # Get the boxes and track IDs
-
                 boxes = results[0].boxes.xywh.cpu()
                 track_ids = results[0].boxes.id.int().cpu().tolist()
 
@@ -48,9 +59,9 @@ def process_video(url: str, model: YOLO) -> None:
 
                 # Plot the tracks
                 for box, track_id in zip(boxes, track_ids):
-                    x, y, _, _ = box
+                    x_val, y_val, _, _ = box
                     track = track_history[track_id]
-                    track.append((float(x), float(y)))  # x, y center point
+                    track.append((float(x=x_val), float(y_val)))  # x, y center point
                     if len(track) > 30:  # retain 90 tracks for 90 frames
                         track.pop(0)
 

@@ -13,10 +13,10 @@ if "__main__" == __name__:
     model = YOLO("yolov8n.pt")
 
     file_path = path.abspath(getcwd())
-    dataset_location, _, _ = get_data("soccer-players-ckbru", 16)
+    dataset = get_data()
 
     result = model.train(
-        data=dataset_location + "\\data.yaml", epochs=50, imgsz=640, device=device
+        data=dataset.location + "\\data.yaml", epochs=50, imgsz=640, device=device
     )
 
     model.val()

@@ -29,8 +29,8 @@ def test_get_data() -> None:
     """
     load_dotenv()
 
-    location_, name_, version_ = get_data("football-players-detection", 1)
+    dataset = get_data()
 
-    assert location_ == getcwd() + "\\" + name_.replace(" ", "-") + "-" + str(
-        version_
+    assert (
+        dataset.location == getcwd() + "\\" + "data"
     ), "The dataset location is not correct."

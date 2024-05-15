@@ -26,7 +26,7 @@ jobs:
       ROBOFLOW_PROJECT_ID: ${{ secrets.ROBOFLOW_PROJECT_ID }}
       WORKSPACE: ${{ secrets.WORKSPACE }}
       ROBOFLOW_PROJECT_VERSION: ${{ secrets.ROBOFLOW_PROJECT_VERSION }}
-      DATASET_FORMAT: ${{ secrets.DATASET_FORMAT }}
+      DATASET_FORMAT: ${{ vars.DATASET_FORMAT }}
     strategy:
       matrix:
         python-version: ["3.11", "3.12"]
@@ -48,7 +48,7 @@ jobs:
       ROBOFLOW_PROJECT_ID: ${{ secrets.ROBOFLOW_PROJECT_ID }}
       WORKSPACE: ${{ secrets.WORKSPACE }}
       ROBOFLOW_PROJECT_VERSION: ${{ secrets.ROBOFLOW_PROJECT_VERSION }}
-      DATASET_FORMAT: ${{ secrets.DATASET_FORMAT }}
+      DATASET_FORMAT: ${{ vars.DATASET_FORMAT }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v2

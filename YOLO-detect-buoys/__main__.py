@@ -8,18 +8,15 @@ from ultralytics import YOLO
 from utils import get_data, get_device, process_video
 
 if "__main__" == __name__:
-    """
-    The main entry point for YOLO detecter buoys.
-    """
 
     device = get_device()
     model = YOLO("yolov8n.pt")
 
     file_path = path.abspath(getcwd())
-    dataset_location, _, _ = get_data("soccer-players-ckbru", 16)
+    dataset = get_data()
 
     result = model.train(
-        data=dataset_location + "\data.yaml", epochs=50, imgsz=640, device=device
+        data=dataset.location + "\\data.yaml", epochs=50, imgsz=640, device=device
     )
 
     model.val()

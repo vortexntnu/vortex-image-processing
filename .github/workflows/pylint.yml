@@ -34,12 +34,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Print Environment Variables
+        run: |
+          echo "ROBOFLOW_API_KEY: $ROBOFLOW_API_KEY"
+          echo "ROBOFLOW_PROJECT_ID: $ROBOFLOW_PROJECT_ID"
+          echo "WORKSPACE: $WORKSPACE"
+          echo "ROBOFLOW_PROJECT_VERSION: $ROBOFLOW_PROJECT_VERSION"
+          echo "DATASET_FORMAT: $DATASET_FORMAT"
+
       - name: Run tests
         shell: bash
         run: |
           pip install -r requirements.txt
           pip install -U pytest
-          pytest .
+          pytest --capture=sys --disable-warnings -v
+
   codecov:
     runs-on: ubuntu-latest
     needs: test

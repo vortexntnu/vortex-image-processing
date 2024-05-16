@@ -2,7 +2,7 @@
 Module for the utility functions.
 """
 
-from os import getcwd
+from os import getcwd, path
 
 from dotenv import load_dotenv
 from torch import cuda, device
@@ -31,6 +31,8 @@ def test_get_data() -> None:
 
     dataset = get_data()
 
-    assert (
-        dataset.location == getcwd() + "\\" + "data"
+    expected_location = path.join(getcwd(), "data")
+
+    assert path.normpath(dataset.location) == path.normpath(
+        expected_location
     ), "The dataset location is not correct."

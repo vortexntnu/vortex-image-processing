@@ -23,9 +23,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ROBOFLOW_API_KEY: ${{ secrets.ROBOFLOW_API_KEY }}
-      ROBOFLOW_PROJECT_ID: ${{ secrets.ROBOFLOW_PROJECT_ID }}
-      WORKSPACE: ${{ secrets.WORKSPACE }}
-      ROBOFLOW_PROJECT_VERSION: ${{ secrets.ROBOFLOW_PROJECT_VERSION }}
+      ROBOFLOW_PROJECT_ID: ${{ vars.ROBOFLOW_PROJECT_ID }}
+      WORKSPACE: ${{ vars.WORKSPACE }}
+      ROBOFLOW_PROJECT_VERSION: ${{ vars.ROBOFLOW_PROJECT_VERSION }}
       DATASET_FORMAT: ${{ vars.DATASET_FORMAT }}
     strategy:
       matrix:
@@ -33,15 +33,6 @@ jobs:
         os: [ubuntu-latest, windows-latest]
     steps:
       - uses: actions/checkout@v4
-
-      - name: Print Environment Variables
-        run: |
-          touch .env
-          echo "ROBOFLOW_API_KEY=$ROBOFLOW_API_KEY" >> .env
-          echo "ROBOFLOW_PROJECT_ID=$ROBOFLOW_PROJECT_ID" >> .env
-          echo "WORKSPACE=$WORKSPACE" >> .env
-          echo "ROBOFLOW_PROJECT_VERSION=$ROBOFLOW_PROJECT_VERSION" >> .env
-          echo "DATASET_FORMAT=$DATASET_FORMAT" >> .env
 
       - name: Run tests
         shell: bash
@@ -55,9 +46,9 @@ jobs:
     needs: test
     env:
       ROBOFLOW_API_KEY: ${{ secrets.ROBOFLOW_API_KEY }}
-      ROBOFLOW_PROJECT_ID: ${{ secrets.ROBOFLOW_PROJECT_ID }}
-      WORKSPACE: ${{ secrets.WORKSPACE }}
-      ROBOFLOW_PROJECT_VERSION: ${{ secrets.ROBOFLOW_PROJECT_VERSION }}
+      ROBOFLOW_PROJECT_ID: ${{ vars.ROBOFLOW_PROJECT_ID }}
+      WORKSPACE: ${{ vars.WORKSPACE }}
+      ROBOFLOW_PROJECT_VERSION: ${{ vars.ROBOFLOW_PROJECT_VERSION }}
       DATASET_FORMAT: ${{ vars.DATASET_FORMAT }}
     steps:
       - uses: actions/checkout@v4

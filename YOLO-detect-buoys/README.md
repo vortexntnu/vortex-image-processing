@@ -45,7 +45,7 @@ Go to the upper right side of the Roboflow main page. Press on the your name to 
 
 ![Menu up right](assets_docs/gifs-docs/open_settings.gif)
 
-#### Settings:
+#### Find the Token under your workspace:
 
 Go to the side manu, and choose the name of the dataset, which in this case is `Vortexbouytrainingset` (markets as red in the image) and choose `Roboflow API`, as demonstrated by:
 ![Side menu](assets_docs/gifs-docs/get_api_key.gif)

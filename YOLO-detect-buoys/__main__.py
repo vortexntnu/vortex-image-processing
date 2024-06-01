@@ -16,7 +16,7 @@ if "__main__" == __name__:
     dataset = get_data()
 
     result = model.train(
-        data=dataset.location + "\\data.yaml", epochs=50, imgsz=640, device=device
+            data=dataset.location + "/data.yaml", epochs=50, imgsz=640, device=device
     )
 
     model.val()

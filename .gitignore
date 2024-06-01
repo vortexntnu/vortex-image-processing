@@ -165,3 +165,5 @@ runs/
 
 # data
 data/
+*.out
+*/*.out

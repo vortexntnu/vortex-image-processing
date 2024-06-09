@@ -13,8 +13,6 @@ if "__main__" == __name__:
 
     load_dotenv()
 
-    HfApi().whoami(token=getenv("HF_TOKEN"))
-
     device = get_device()
     model = YOLO("yolov8n.pt")
 
@@ -29,11 +27,8 @@ if "__main__" == __name__:
 
     path = model.export(format="onnx")  # export to onnx
 
-    # Initialize the repository
-    repo = Repository(local_dir=path, clone_from=getenv("HG_REPO_ID"))
-
-    # Commit and push your changes
-    repo.push_to_hub(commit_message="push the model to the hub")
+    print("Model exported to: " + path)
+    print(path)
 
 # References:
 # https://docs.ultralytics.com/quickstart/#install-ultralytics

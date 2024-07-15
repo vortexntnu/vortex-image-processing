@@ -13,6 +13,10 @@ module load foss/2022a
 module load PyTorch/1.12.0-foss-2022a-CUDA-11.7.0
 module load torchvision/0.13.1-foss-2022a-CUDA-11.7.0
 module load CUDA/12.0.0
-pip install tqdm
 pip install -r requirements.txt
+pip uninstall protobuf
+pip install protobuf==4.21.4
+pip install -U ultralytics
+pip install --force-reinstall ultralytics
+pip install --upgrade protobuf
 python3 .

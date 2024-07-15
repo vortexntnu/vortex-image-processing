@@ -25,7 +25,7 @@ if "__main__" == __name__:
 
     model.val()
 
-    path = model.export(format="onnx")  # export to onnx
+    path = model.export()  # export to onnx
 
     print("Model exported to: " + path)
     print(path)
